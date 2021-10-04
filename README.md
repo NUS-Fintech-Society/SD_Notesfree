@@ -1,20 +1,21 @@
 # SD_Notesfree
 
-## Python Rule
+## Python Workflow
 
 Add all dependencies to requirements.txt file at the root of backend
 Read more here : https://note.nkmk.me/en/python-pip-install-requirements/
 
-##  Postman rules
+##  Postman Workflow
 
 Create a collection called "Notesfree" and clearly name every endpoint appropriately
+Export at the end of merge for other memeber to pull
 
-## Development Workflow
+## Development Workflow (credits to jovyn)
 DO NOT WORK on the main branch directly!
 
 Follow the format of  "name/what-you-are-doing"
 
-e.g. john/fix-endpoint
+e.g. leah/fix-api 
 
 git command to create a new branch:
 
