@@ -13,7 +13,7 @@ Export at the end of merge for other memeber to pull
 ## Git Workflow
 Please DO NOT WORK on the main branch directly!
 
-Follow branch naming convention of  "name/what-you-are-doing" like "leah/fix-api"
+Follow branch naming convention of  "@name/what-you-are-doing" like "leah/fix-api"
 
 - git command to create a new branch:
   - git checkout -b leah/fix-api (-b creates a new branch)
