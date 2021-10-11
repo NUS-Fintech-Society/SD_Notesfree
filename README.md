@@ -5,7 +5,6 @@
 ## Map
 
 ```
-.
 ├── README.md
 ├── src 
       └──  components
@@ -38,11 +37,12 @@
 ### Components
 
 - If some part of the UI is reused by multiple pages or multiple times within one page, it should be a component.
-- We will standardise to use **functional components**. You can reference the [Fintech Website](https://github.com/NUS-Fintech-Society/SD_Fintech_Website/tree/master/components) if you're unsure of how to write and structure the components.
+- Visit [Fintech Website](https://github.com/NUS-Fintech-Society/SD_Fintech_Website/tree/master/components) or watch some tutorial if you're unsure of how to write and structure the components.
 
 ### Style
 
-- Whenever possible, use Material UI components instead of manually writing your own styles.
+- css is painful sometimes :)
+- Whenever possible, use Material UI components or some other UI library and standerdise it instead of manually writing your own styles.
 
 
 ### Services
