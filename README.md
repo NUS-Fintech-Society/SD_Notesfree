@@ -2,10 +2,13 @@
 
 
 
+
+
+## Frontend 
+
 ## Map
 
 ```
-├── README.md
 ├── src 
       └──  components
       |     └── Header
@@ -22,9 +25,6 @@
 
 
 ```
-
-## Frontend 
-
 1. Everything except files in`frontend/src/service` should be a .jsx file
 2. If you're not in the /frontend subdirectory, `cd frontend`
 3. Run `npm install` to download the required packages after every pull and when installing new packages.
