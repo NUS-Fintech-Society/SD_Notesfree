@@ -1,11 +1,62 @@
 # SD_Notesfree
 
-## Python Workflow
+
+
+## Map
+
+```
+.
+├── README.md
+├── src 
+      └──  components
+      |     └── Header
+      |           ├── Footer.jsx
+      |           └── Header.jsx
+      ├── pages
+      |     ├── app.jsx
+      │     └── index.jsx
+      ├── styles
+      │    ├── app.css
+      │    └── globals.css
+      └── service
+           └── api.js
+
+
+```
+
+## Frontend 
+
+1. Everything except Services should be a .jsx file
+2. If you're not in the /frontend subdirectory, `cd frontend`
+3. Run `npm install` to download the required packages after every pull and when installing new packages.
+4. Run `npm run dev` and view on [http://localhost:3000/](http://localhost:3000/)
+
+### Pages
+
+- Pages correspond to the webpage that a user sees. Read more on Next.js website for this
+
+### Components
+
+- If some part of the UI is reused by multiple pages or multiple times within one page, it should be a component.
+- We will standardise to use **functional components**. You can reference the [Fintech Website](https://github.com/NUS-Fintech-Society/SD_Fintech_Website/tree/master/components) if you're unsure of how to write and structure the components.
+
+### Style
+
+- Whenever possible, use Material UI components instead of manually writing your own styles.
+
+
+### Services
+
+- We will build all our Oauth services and apis here. 
+
+## Backend 
+  
+### Python Workflow
 
 Add all dependencies to requirements.txt file at the root of backend
 Read more here : https://note.nkmk.me/en/python-pip-install-requirements/
 
-##  Postman Workflow
+###  Postman Workflow
 
 Create a collection called "Notesfree" and clearly name every endpoint appropriately
 Export at the end of merge for other memeber to pull
