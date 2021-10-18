@@ -72,8 +72,8 @@ Follow branch naming convention of  "@name/what-you-are-doing" like "leah/fix-ap
 - git command to move to branch one already created:
   - git checkout leah/fix-api 
 
-- Once you are done with your work and tied up loose ends:
+- Once you are done with your work:
   1. Pull the code from main and then merge it with your branch
   2. ALWAYS PULL BEFORE you push(to get new changes) and fix merge conflicts.
   3. Push your changes ONLY to your branch.
-  4. Open a Pull Request (PR) to main branch and tag me if I'm not already tagged.
+  4. Open a Pull Request (PR) to main branch (code must compile) and tag me if I'm not already tagged.
