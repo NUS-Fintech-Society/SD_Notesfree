@@ -3,24 +3,27 @@ import pymongo
 import dns
 import json
 from bson import json_util
-#from models import *
+#import models
 
 cluster = pymongo.MongoClient("mongodb+srv://haoyi:nusfintech2122@nusfintechnotesfree.clo57.mongodb.net/NUSFintechNotesfree?retryWrites=true&w=majority", serverSelectionTimeoutMS=5000 )
 
 db = cluster["notesfree"]
-collection = db["user"]
+usercollection = db["user"]
+chatcollection = db["chat"]
+messagecollection = db["message"]
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
 def home():
-    return "<h1>NUSFintech Society Notes</h1><p>Under Development</p>"
+    text = "<h1>NUSFintech Society Notes</h1><p>Under Development</p>"
+    return text
 
 #get all users
 @app.route('/api/users', methods=['GET'])
 def getAllUser():
-    all_user = list(collection.find({}))
+    all_user = list(usercollection.find({}))
     return json.dumps(all_user, default=json_util.default)
 
 
@@ -50,8 +53,9 @@ def getUserById(userId):
 # """
 # #get all chats
 @app.route('/api/chat', methods=['GET'])
-def getAllChats():
-    return "work in progress"
+def getAllChat():
+    all_chat = list(chatcollection.find({}))
+    return json.dumps(all_chat, default=json_util.default)
 
 
 # #get chat by char id
@@ -72,10 +76,11 @@ def getAllChats():
 #     return "work in progress"
 
 
-# #get all messages
-# @app.route('/api/message', methods=['GET'])
-# def getAllMessage():
-#     return "work in progress"
+#get all messages
+@app.route('/api/message', methods=['GET'])
+def getAllMessage():
+    all_message = list(messagecollection.find({}))
+    return json.dumps(all_message, default=json_util.default)
 
 
 # #get message by message id
@@ -100,8 +105,14 @@ def getAllChats():
 # #user = User.objects(user_id = 0).first()
 # print(user.to_json())
 
-collection.insert_one({"user_id": 0 , "name": "test0", "email" : "test@test.com", "Username": "testa" , "Password": "123PW" })
+# CRUD
+#collection.insert_one({})
+#collection.insert_many({})
+#collection.find({})
 
+
+#chatcollection.insert_one({"_id": 2 , "name": "test1", "email" : "test1@test.com", "Username": "testa" , "Password": "123PW" })
+#messagecollection.insert_one({"_id": 4, "name": "hello here"})
 
 try:
     print(cluster.server_info())
