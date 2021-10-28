@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 import pymongo
 import dns
 import json
@@ -37,20 +37,30 @@ def getUserById(userId):
 
 
 
-# """
-# @app.route('/api/users', methods=['POST']) #create a user
-# def create_record():
-#     record = json.loads(request.data)
-#     user = User(
-#             id = record['id'],
-#             name = record['name'],
-#             email = record['email'],
-#             username = record['username'],
-#             password = record['password'],
-#             )
-#     user.save()
-#     return jsonify(user.to_json())
-# """
+
+@app.route('/api/adduser', methods=['POST']) #create a user
+def create_record():
+    user = request.json
+    newUserId = user['_id']
+    newName = user['name']
+    newEmail = user['email']
+    newUsername = user['username']
+    newPassword = user['password']
+    usercollection.insert_one({
+        "_id" : newUserId,
+        "name": newName,
+        "email": newEmail,
+        "Username": newUsername,            
+        "Password": newPassword
+        })
+    return jsonify({
+        "user_id" : newUserId,
+        "name": newName,
+        "email": newEmail,
+        "Username": newUsername,            
+        "Password": newPassword
+        })
+
 # #get all chats
 @app.route('/api/chat', methods=['GET'])
 def getAllChat():
@@ -58,10 +68,13 @@ def getAllChat():
     return json.dumps(all_chat, default=json_util.default)
 
 
-# #get chat by char id
-# @app.route('/api/chat/chatId', methods=['GET'])
-# def getChatById():
-#    return "work in progress"
+#get chat by char id
+@app.route('/api/chat/<chatId>', methods=['GET'])
+def getChatById(chatId):
+    targetChat =  chatcollection.find({"_id": chatId })
+    targetJson = json.dumps(list(targetChat))
+    print(targetJson)
+    return f"{targetJson}"
 
 
 # #create a chat room
