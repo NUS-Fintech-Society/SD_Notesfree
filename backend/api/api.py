@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import pymongo
 import dns
 import json
-from bson import json_util
+from bson import json_util , ObjectId
 #import models
 
 cluster = pymongo.MongoClient("mongodb+srv://haoyi:nusfintech2122@nusfintechnotesfree.clo57.mongodb.net/NUSFintechNotesfree?retryWrites=true&w=majority", serverSelectionTimeoutMS=5000 )
@@ -28,24 +28,21 @@ def getAllUser():
 
 
 #get user by user id
-@app.route('/api/users/<userId>')
+@app.route('/api/users/<userId>', methods=['GET'])
 def getUserById(userId):
-    return f"hello user {userId}"
-    # user = User.object(id = {userId})
-    # print(user.to_json())
+    targetUser = list(usercollection.find({'_id' : int(userId)}))
+    return json.dumps(targetUser, default=json_util.default)
+    
 
-
-
-
-
-@app.route('/api/adduser', methods=['POST']) #create a user
-def create_record():
-    user = request.json
-    newUserId = user['_id']
-    newName = user['name']
-    newEmail = user['email']
-    newUsername = user['username']
-    newPassword = user['password']
+#create a new user
+@app.route('/api/adduser', methods=['POST']) 
+def create_user():
+    message = request.json
+    newUserId = message['_id']
+    newName = message['name']
+    newEmail = message['email']
+    newUsername = message['username']
+    newPassword = message['password']
     usercollection.insert_one({
         "_id" : newUserId,
         "name": newName,
@@ -54,40 +51,64 @@ def create_record():
         "Password": newPassword
         })
     return jsonify({
-        "user_id" : newUserId,
+        "_id" : newUserId,
         "name": newName,
         "email": newEmail,
         "Username": newUsername,            
         "Password": newPassword
         })
 
-# #get all chats
+#get all chats
 @app.route('/api/chat', methods=['GET'])
 def getAllChat():
     all_chat = list(chatcollection.find({}))
     return json.dumps(all_chat, default=json_util.default)
 
-
-#get chat by char id
+#get chat by chat id
 @app.route('/api/chat/<chatId>', methods=['GET'])
 def getChatById(chatId):
-    targetChat =  chatcollection.find({"_id": chatId })
-    targetJson = json.dumps(list(targetChat))
-    print(targetJson)
-    return f"{targetJson}"
+    targetChat = list(chatcollection.find({'_id' : int(chatId)}))
+    return json.dumps(targetChat, default=json_util.default)
 
+#create a chat room
+@app.route('/api/chat', methods=['POST'])
+def create_chat_room():
+    chat = request.json
+    newRoomId = chat['_id']
+    newMembers = chat['members']
+    newCreator = chat['creator']
+    newDeleteBy = chat['deleted_by']
+    chatcollection.insert_one({
+        "_id" : newRoomId,
+        "members": newMembers,
+        "creator": newCreator,            
+        "delete_by": newDeleteBy
+        })
+    return jsonify({
+        "status": "sucess",
+        "_id" : newRoomId,
+        "members": newMembers,
+        "creator": newCreator,            
+        "delete_by": newDeleteBy
+        })
 
-# #create a chat room
-# @app.route('/api/chat', methods=['POST'])
-# def createChat():
-#     return "work in progress"
-
-
-# #create a message
-# @app.route('/api/message', methods=['POST'])
-# def createMessage():
-#     return "work in progress"
-
+#create a message
+@app.route('/api/message', methods=['POST'])
+def create_message():
+    message = request.json
+    newConvoId = message['_id']
+    newAuthor = message['members']
+    newContent = message['creator']
+    chatcollection.insert_one({
+        "_id" : newConvoId,
+        "author": newAuthor,
+        "content": newContent            
+        })
+    return jsonify({
+        "_id" : newConvoId,
+        "author": newAuthor,
+        "content": newContent            
+        })
 
 #get all messages
 @app.route('/api/message', methods=['GET'])
@@ -95,37 +116,17 @@ def getAllMessage():
     all_message = list(messagecollection.find({}))
     return json.dumps(all_message, default=json_util.default)
 
+#get message by message id
+@app.route('/api/message/<messId>', methods=['GET'])
+def getMessagebyId(messId):
+    targetMessage = list(messagecollection.find({'_id' : int(messId)}))
+    return json.dumps(targetMessage, default=json_util.default)
 
-# #get message by message id
-# @app.route('/api/message/messId', methods=['GET'])
-# def getMessagebyId():
-#     return "work in progress"
-
-
-# print("\nTesting user input")
-
-# test = User(
-    # user_id = 0,
-    # name = "test",
-    # email = "test@test.com",
-    # username = "testing",
-    # password = "tester",
-# )
-
-
-
-# print("\nFetch test input")
-# #user = User.objects(user_id = 0).first()
-# print(user.to_json())
 
 # CRUD
 #collection.insert_one({})
 #collection.insert_many({})
 #collection.find({})
-
-
-#chatcollection.insert_one({"_id": 2 , "name": "test1", "email" : "test1@test.com", "Username": "testa" , "Password": "123PW" })
-#messagecollection.insert_one({"_id": 4, "name": "hello here"})
 
 try:
     print(cluster.server_info())
