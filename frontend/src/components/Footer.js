@@ -1,20 +1,26 @@
-import styled from 'styled-components';
-import Link from 'next/link';
+import { makeStyles } from "@material-ui/core";
 
-const FooterSection = styled.div`
-  background: #b3cde0;
-  color: #23272a;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const useStyles = makeStyles( (theme) => ({
+
+  FooterSection: {
+    background: "#b3cde0",
+    color: "#23272a",
+    height: "60px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }
+  
+}));
+
+
 
 const Footer = () => {
+  const classes = useStyles();
   return (
-    <FooterSection>
-      <p>NUS Fintech Society 2021 All Rights Reserved</p>
-    </FooterSection>
+    <div className = {classes.FooterSection}>
+      <p>NUS Fintech Society 2021 &copy; All Rights Reserved</p>
+      </div>
   );
 };
 

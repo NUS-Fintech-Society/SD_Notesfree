@@ -1,54 +1,70 @@
 import Image from 'next/image';
-import styled, { StyleSheetManager } from 'styled-components';
+import {AppBar, Toolbar, CssBaseline, Typography, makeStyles} from "@material-ui/core";
 import Link from 'next/link';
 import Logo from '../../public/Logo.png';
 import { imageConfigDefault } from 'next/dist/server/image-config';
 
+const useStyles = makeStyles( (theme) => ({
+  
+  Nav: {
+    height: "80px",
+    background: "#22536E",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    color: "#F6C15D",
+    borderBottom: "5px solid #F6C15D",
+  },
 
-const Nav = styled.nav`
-  height: 80px;
-  background: #22536E;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #F6C15D;
-  border-bottom: 5px solid #F6C15D;
-`;
+  NavLinks: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    cursor: "pointer",
 
+  },
 
-const StyledLink = styled.a`
-  padding: 0rem 2rem;
-  &:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 3px;
+  StyledLink: {
+    padding: "0rem 2rem",
+    "&:hover": {
+      textDecoration: "underline",
+      textDecorationThickness: "3px",
+    },
   }
-`;
+
+}));
 
 const Navbar = () => {
+
+    const classes = useStyles();
+
     return (
-        <Nav>
+      <AppBar position = "static">
+        <CssBaseline />
+        <Toolbar className ={classes.Nav}>
           <div>
             <Link href='/' passHref>
-              <StyledLink>
+              <div className = {classes.StyledLink}>
                 <Image src={Logo} alt="Logo" width="110" height="70" />
-              </StyledLink>
+              </div>
             </Link>
           </div>
-          <div>
+          <div className = {classes.NavLinks}>
             <Link href='/' passHref>
-              <StyledLink>Home</StyledLink>
+              <div className = {classes.StyledLink}>Home</div>
             </Link>
             <Link href='/about' passHref>
-              <StyledLink>About</StyledLink>
+              <div className = {classes.StyledLink}>About</div>
             </Link>
             <Link href='/contact' passHref>
-              <StyledLink>Contact</StyledLink>
+              <div className = {classes.StyledLink}>Contact</div>
             </Link>
             <Link href='/login' passHref>
-              <StyledLink>Login</StyledLink>
+              <div className = {classes.StyledLink}>Login</div>
             </Link>
           </div>
-        </Nav>
+        </Toolbar>
+        </AppBar>
       );
     };
     
