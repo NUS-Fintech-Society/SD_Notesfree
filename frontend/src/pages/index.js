@@ -6,7 +6,7 @@ const Hero = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fff;
+  background: rgba(105,180,222,0.7);
 `;
 
 const Heading = styled.h1`

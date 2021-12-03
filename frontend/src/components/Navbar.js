@@ -1,17 +1,27 @@
-import styled from 'styled-components';
+import Image from 'next/image';
+import styled, { StyleSheetManager } from 'styled-components';
 import Link from 'next/link';
+import Logo from '../../public/Logo.png';
+import { imageConfigDefault } from 'next/dist/server/image-config';
+
 
 const Nav = styled.nav`
   height: 80px;
-  background: #011f4b;
+  background: #22536E;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #fff;
+  color: #F6C15D;
+  border-bottom: 5px solid #F6C15D;
 `;
+
 
 const StyledLink = styled.a`
   padding: 0rem 2rem;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+  }
 `;
 
 const Navbar = () => {
@@ -19,7 +29,9 @@ const Navbar = () => {
         <Nav>
           <div>
             <Link href='/' passHref>
-              <StyledLink>NotesFree</StyledLink>
+              <StyledLink>
+                <Image src={Logo} alt="Logo" width="110" height="70" />
+              </StyledLink>
             </Link>
           </div>
           <div>
