@@ -1,16 +1,17 @@
 from flask import Flask, request, jsonify
 import pymongo
-import dns
-import json
-from bson import json_util , ObjectId
-#import models
+from pymongo import MongoClient
+import json 
+import bson
+from bson import json_util
+# from models import Message
 
-cluster = pymongo.MongoClient("mongodb+srv://haoyi:nusfintech2122@nusfintechnotesfree.clo57.mongodb.net/NUSFintechNotesfree?retryWrites=true&w=majority", serverSelectionTimeoutMS=5000 )
+cluster = MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false")
 
-db = cluster["notesfree"]
+db = cluster["admin"]
 usercollection = db["user"]
 chatcollection = db["chat"]
-messagecollection = db["message"]
+msgcollection = db["messages"]
 
 app = Flask(__name__)
 
@@ -92,43 +93,29 @@ def create_chat_room():
         "delete_by": newDeleteBy
         })
 
-#create a message
-@app.route('/api/message', methods=['POST'])
-def create_message():
-    message = request.json
-    newConvoId = message['_id']
-    newAuthor = message['members']
-    newContent = message['creator']
-    chatcollection.insert_one({
-        "_id" : newConvoId,
-        "author": newAuthor,
-        "content": newContent            
-        })
-    return jsonify({
-        "_id" : newConvoId,
-        "author": newAuthor,
-        "content": newContent            
-        })
+@app.route('/api/message', methods=["POST"])
+def post_message():
+    request_payload = request.json
+    msgcollection.insert_one({"convo_id": request_payload["convo_id"], "author": request_payload["author"], "content": request_payload["content"]})
+    return 'Message sent'
 
-#get all messages
-@app.route('/api/message', methods=['GET'])
-def getAllMessage():
-    all_message = list(messagecollection.find({}))
-    return json.dumps(all_message, default=json_util.default)
+@app.route('/api/<convo_id>', methods=["GET"])
+def get_all(convo_id):                                  
+    all = list(msgcollection.find({"convo_id": int(convo_id)}))
+    return json.dumps(all, default=json_util.default)
 
-#get message by message id
-@app.route('/api/message/<messId>', methods=['GET'])
-def getMessagebyId(messId):
-    targetMessage = list(messagecollection.find({'_id' : int(messId)}))
-    return json.dumps(targetMessage, default=json_util.default)
-
-
-# CRUD
-#collection.insert_one({})
-#collection.insert_many({})
-#collection.find({})
+@app.route('/api/message/<messId>', methods=["GET"])
+def get_message_by_id(messId): 
+    message = msgcollection.find_one({"_id": int(messId)}) 
+    if message: 
+        return json.dumps(message, default=json_util.default)
+    else: 
+        return 'Message does not exist'
 
 try:
     print(cluster.server_info())
 except Exception:
     print("Unable to connect to the server.")
+
+if __name__ == "__main__": 
+    app.run(debug=True, port=5000, host="127.0.0.1")
