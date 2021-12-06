@@ -1,10 +1,8 @@
+
 from flask import Flask, request, jsonify
-import pymongo
 from pymongo import MongoClient
 import json 
-import bson
 from bson import json_util
-# from models import Message
 
 cluster = MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false")
 
@@ -14,7 +12,6 @@ chatcollection = db["chat"]
 msgcollection = db["messages"]
 
 app = Flask(__name__)
-
 
 @app.route('/', methods=['GET'])
 def home():
@@ -27,14 +24,12 @@ def getAllUser():
     all_user = list(usercollection.find({}))
     return json.dumps(all_user, default=json_util.default)
 
-
 #get user by user id
 @app.route('/api/users/<userId>', methods=['GET'])
 def getUserById(userId):
     targetUser = list(usercollection.find({'_id' : int(userId)}))
     return json.dumps(targetUser, default=json_util.default)
     
-
 #create a new user
 @app.route('/api/adduser', methods=['POST']) 
 def create_user():
