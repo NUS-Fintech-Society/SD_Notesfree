@@ -1,12 +1,19 @@
 
 from flask import Flask, request, jsonify
-from pymongo import MongoClient
+from pymongo import MongoClient, mongo_client
 import json 
 from bson import json_util
+import pymongo
 
-cluster = MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false")
 
-db = cluster["admin"]
+#cluster = pymongo.MongoClient("mongodb+srv://user1:12345@cluster1.jyylb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+
+cluster = pymongo.MongoClient("mongodb+srv://user1:12345@cluster1.jyylb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", serverSelectionTimeoutMS=5000 )
+
+#cluster = MongoClient("mongodb+srv://user1:12345@cluster1.jyylb.mongodb.net/test")
+#cluster = MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false")
+
+db = cluster["test"]
 usercollection = db["user"]
 chatcollection = db["chat"]
 msgcollection = db["messages"]
