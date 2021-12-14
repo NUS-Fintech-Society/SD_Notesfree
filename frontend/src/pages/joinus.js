@@ -1,30 +1,66 @@
-import Head from 'next/head';
-import styled from 'styled-components';
+import React, { Component } from "react";
+//import '../styles.css';
+import CustomInput from '../components/CustomInput';
+import Button from "../components/Button";
 
-const Hero = styled.div`
-  height: 90vh;
-  display: flex;
-  justify-content: center;
-  align-items: top;
-  background: #fff;
-`;
+export default class joinus extends Component {
+  state = {
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: ""
+  };
 
-const Heading = styled.h1`
-color: #005;
-font-size: 5rem; 
-font-weight: 200;
-`;
+  handleChange = e => {
+    this.setState({ [e.currentTarget.id]: e.currentTarget.value });
+  };
 
-export default function About() {
-  return (
-    <>
-      <Head>
-        <title>Join Us!</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <Hero>
-        <Heading>Join Us!</Heading>
-      </Hero>
-    </>
-  );
+  render() {
+    return (
+      <div className="joinus">
+        <form className="form">
+        <CustomInput
+            labelText="First Name"
+            id="firstnae"
+            formControlProps={{
+              fullWidth: true
+            }}
+            handleChange={this.handleChange}
+            type="text"
+          />
+          <CustomInput
+            labelText="Last Name"
+            id="lastname"
+            formControlProps={{
+              fullWidth: true
+            }}
+            handleChange={this.handleChange}
+            type="text"
+          />
+          <CustomInput
+            labelText="Email"
+            id="email"
+            formControlProps={{
+              fullWidth: true
+            }}
+            handleChange={this.handleChange}
+            type="text"
+          />
+          <CustomInput
+            labelText="Password"
+            id="password"
+            formControlProps={{
+              fullWidth: true
+            }}
+            handleChange={this.handleChange}
+            type="password"
+          />
+
+          <Button type="button" color="primary" className="form__custom-button">
+            Sign Up
+          </Button>
+        </form>
+      </div>
+    );
+  }
 }
