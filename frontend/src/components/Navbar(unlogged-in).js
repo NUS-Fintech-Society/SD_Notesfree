@@ -64,9 +64,9 @@ const Navbar = () => {
             </Link>
           </div>
         </Toolbar>
-        </AppBar>
-      );
-    };
+      </AppBar>
+    );
+  };
     
-    export default Navbar;
+export default Navbar;
     

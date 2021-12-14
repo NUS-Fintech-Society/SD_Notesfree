@@ -13,7 +13,7 @@ const useStyles = makeStyles( (theme) => ({
 }));
 
 
-const Login= () =>  {
+const Login = () =>  {
   const classes = useStyles();
   return (
     <div className = {classes.Background}>

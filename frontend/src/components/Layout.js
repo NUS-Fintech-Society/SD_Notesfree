@@ -1,11 +1,21 @@
 import Footer from './Footer';
-import Navbar from './navbar';
+import NavbarUnlogged from './Navbar(unlogged-in)';
+import NavbarLogged from './Navbar(loggedin)';
+
+const loggedIn = true; 
 
 export default function Layout({ children }) {
   return (
-    <div>
-      <Navbar />
-      {children}
+    <div> 
+      {loggedIn 
+        ? (
+          <NavbarLogged /> 
+          )
+        : (
+          <NavbarUnlogged /> 
+        )
+      }
+        {children}
       <Footer />
     </div>
   );
