@@ -27,13 +27,39 @@ const About= () =>  {
 
 const apiURL = 'http://localhost:5000';
 
-function getAllUser(){
+// function getAllUser(){
+//   axios
+//   .get(`${apiURL}/api/users`, {
+//     timeout: 5000
+//   })
+//   .then(res => itsWorking(res))
+//   .catch(err => console.log("err=="+err));
+// }
+
+const getAllUser = async () => {
+  try {
+      //const resp = await axios.get('`${apiURL}/api/users`');
+      const resp = await axios.get(`${apiURL}/api/users`);
+      console.log(resp);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
+
+
+const addUser = async() => {
   axios
-  .get(`${apiURL}/api/users`, {
-    timeout: 5000
-  })
-  .then(res => itsWorking(res))
-  .catch(err => console.log("err=="+err));
+    .post(`${apiURL}/api/adduser`, {
+      //data to be posted to the url
+      '_id': 1,
+      'name': "test",
+      'email': 'testemail',
+      'Username': 'testUname',
+      'Password': 'testPS'
+    })
+    .then(res => itsWorking(res))
+    .catch(err => console.error(err));
 }
 
 function itsWorking(){
@@ -46,50 +72,6 @@ function itsWorking(){
 //   baseURL: 'https://jsonplaceholder.typicode.com'
 // });
 
-function showOutput(res) {
-  document.getElementById('res').innerHTML = `
-  <div class="card card-body mb-4">
-    <h5>Status: ${res.status}</h5>
-  </div>
-  <div class="card mt-3">
-    <div class="card-header">
-      Headers
-    </div>
-    <div class="card-body">
-      <pre>${JSON.stringify(res.headers, null, 2)}</pre>
-    </div>
-  </div>
-  <div class="card mt-3">
-    <div class="card-header">
-      Data
-    </div>
-    <div class="card-body">
-      <pre>${JSON.stringify(res.data, null, 2)}</pre>
-    </div>
-  </div>
-  <div class="card mt-3">
-    <div class="card-header">
-      Config
-    </div>
-    <div class="card-body">
-      <pre>${JSON.stringify(res.config, null, 2)}</pre>
-    </div>
-  </div>
-`;
-}
-
-
-// Event listeners
-// document.getElementById('get').addEventListener('click', getTodos);
-// document.getElementById('post').addEventListener('click', addTodo);
-// document.getElementById('update').addEventListener('click', updateTodo);
-// document.getElementById('delete').addEventListener('click', removeTodo);
-// document.getElementById('sim').addEventListener('click', getData);
-// document.getElementById('headers').addEventListener('click', customHeaders);
-// document
-//   .getElementById('transform')
-//   .addEventListener('click', transformResponse);
-// document.getElementById('error').addEventListener('click', errorHandling);
-// document.getElementById('cancel').addEventListener('click', cancelToken);
 getAllUser();
+addUser();
 export default About;

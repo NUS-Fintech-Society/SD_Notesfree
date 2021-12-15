@@ -47,14 +47,23 @@ const apiURL = 'http://localhost:3000/'
 // }
 
 //from Youtube tut
-function getAllUser(){
-    axios
-    .get(`${apiURL}/api/users`, {
-      timeout: 5000
-    })
-    .then(res => itsWorking(res))
-    .catch(err => console.error(err));
-}
+// function getAllUser(){
+//     axios
+//     .get(`${apiURL}/api/users`, {
+//     })
+//     .then(res => itsWorking(res))
+//     .catch(err => console.error(err));
+// }
+
+const getAllUser = async () => {
+  try {
+      const resp = await axios.get('`${apiURL}/api/users`');
+      console.log(resp);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
 
 function addTodo(res) {
     axios
