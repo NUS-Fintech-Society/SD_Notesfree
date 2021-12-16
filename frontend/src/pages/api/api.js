@@ -14,72 +14,112 @@ const apiURL = 'http://localhost:3000/'
 // Get all messages: GET /api/message 
 // Get message by message id: GET /api/message/messId
 
-//from stackOverFlow
-// const getAllUsers = async () => {
-//     try {
-//       let allUsers = await axios(`${apiURL}/api/users`);
-//       console.log(allUsers);
-//     } catch (error) {
-//       console.error('Error:', error);
-//     };
-// };
-  
-// const getUserById = async() => {
-//     try {
-//       let response = await axios.get(`${apiURL}/api/users/${userID}`);
-//       console.log(response);
-//     } catch (error) {
-//       console.error(error);
-//     }
-// };
-
-// const createUser = async() => {
-//     axios.post('/user', {
-//         firstName: 'Fred',
-//         lastName: 'Flintstone'
-//       })
-//       .then(function (response) {
-//         console.log(response);
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
-// }
-
-//from Youtube tut
-// function getAllUser(){
-//     axios
-//     .get(`${apiURL}/api/users`, {
-//     })
-//     .then(res => itsWorking(res))
-//     .catch(err => console.error(err));
-// }
 
 const getAllUser = async () => {
   try {
-      const resp = await axios.get('`${apiURL}/api/users`');
-      console.log(resp);
+      const resp = await axios.get(`${apiURL}/api/users`);
+      return(resp.data);
   } catch (err) {
       // Handle Error Here
       console.log("err: " + err);
   }
 };
 
-function addTodo(res) {
-    axios
-      .post(`${apiURL}/api/users`, {
-        //data to be posted to the url
-        '_id': 1,
-        'name': "test",
-        'email': 'testemail',
-        'Username': 'testUname',
-        'Password': 'testPS'
-      })
-      .then(res => itsWorking(res))
-      .catch(err => console.error(err));
-}
+const getUserById = async (id) => {
+  try {
+      const resp = await axios.get(`${apiURL}/api/users/${id}`);
+      return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
 
-function itsWorking(){
-    console.log(res);
-    console.log('its working');
-}
+const addUser = async(newuser) => {
+  try {
+    const resp = await axios.post(`${apiURL}/api/adduser`, {
+      //data to be posted to the url
+      "_id": newuser["_id"],
+      "name": newuser["name"],
+      "email": newuser["email"],
+      "username": newuser["username"],
+      "password": newuser["password"]
+    })
+    .then(console.log("new user added"));
+  } catch (err) {
+    // Handle Error Here
+    console.log("err: " + err);
+  }
+};
+
+
+const getAllChat = async () => {
+  try {
+      const resp = await axios.get(`${apiURL}/api/chat`);
+      return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
+
+const getChatById = async (id) => {
+  try {
+      const resp = await axios.get(`${apiURL}/api/chat/${id}`);
+      return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
+
+const addChat = async(newchat) => {
+  try {
+    const resp = await axios.post(`${apiURL}/api/chat`, {
+      //data to be posted to the url
+      "_id" : newchat["_id"],
+        "members": newchat["members"],
+        "creator": newchat["creator"],            
+        "delete_by": newchat["delete_by"]
+    })
+    .then(console.log("new chat added"));
+  } catch (err) {
+    // Handle Error Here
+    console.log("err: " + err);
+  }
+};
+
+const getAllMessage = async () => {
+  try {
+      const resp = await axios.get(`${apiURL}/api/message`);
+      return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
+
+const getMessageById = async (id) => {
+  try {
+      const resp = await axios.get(`${apiURL}/api/message/${id}`);
+      return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
+
+const addMessage = async(newmessage) => {
+  try {
+    const resp = await axios.post(`${apiURL}/api/message`, {
+      //data to be posted to the url
+      "convo_id": newmessage["convo_id"], 
+      "author": newmessage["author"], 
+      "content": newmessage["content"]
+    })
+    .then(console.log("new message added"));
+  } catch (err) {
+    // Handle Error Here
+    console.log("err: " + err);
+  }
+};
