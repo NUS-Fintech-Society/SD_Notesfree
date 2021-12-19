@@ -37,7 +37,8 @@ const getUserById = async (id) => {
 
 const addUser = async(newuser) => {
   try {
-    const resp = await axios.post(`${apiURL}/api/adduser`, {
+    //const resp = await axios.get('`${apiURL}/api/users`');
+    const response = await axios.post(`${apiURL}/api/users`, {
       //data to be posted to the url
       "_id": newuser["_id"],
       "name": newuser["name"],
@@ -45,12 +46,12 @@ const addUser = async(newuser) => {
       "username": newuser["username"],
       "password": newuser["password"]
     })
-    .then(console.log("new user added"));
+    console.log(response);
   } catch (err) {
     // Handle Error Here
     console.log("err: " + err);
   }
-};
+}
 
 
 const getAllChat = async () => {
