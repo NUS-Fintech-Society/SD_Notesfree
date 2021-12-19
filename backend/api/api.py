@@ -8,7 +8,7 @@ from flask_cors import CORS
 #cluster = pymongo.MongoClient("mongodb+srv://user1:12345@cluster1.jyylb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
 cluster = pymongo.MongoClient("mongodb+srv://user1:12345@cluster1.jyylb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", serverSelectionTimeoutMS=5000 )
-
+#cluster = pymongo.MongoClient("mongodb+srv://user1:<password>@cluster1.jyylb.mongodb.net/test")
 #cluster = MongoClient("mongodb+srv://user1:12345@cluster1.jyylb.mongodb.net/test")
 #cluster = MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false")
 
@@ -18,7 +18,7 @@ chatcollection = db["chat"]
 msgcollection = db["messages"]
 
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -38,7 +38,7 @@ def getUserById(userId):
     return json.dumps(targetUser, default=json_util.default)
     
 #create a new user
-@app.route('/api/adduser', methods=['POST']) 
+@app.route('/api/users', methods=['POST']) 
 def create_user():
     message = request.json
     newUserId = message['_id']
@@ -80,7 +80,7 @@ def create_chat_room():
     newRoomId = chat['_id']
     newMembers = chat['members']
     newCreator = chat['creator']
-    newDeleteBy = chat['deleted_by']
+    newDeleteBy = chat['delete_by']
     chatcollection.insert_one({
         "_id" : newRoomId,
         "members": newMembers,
