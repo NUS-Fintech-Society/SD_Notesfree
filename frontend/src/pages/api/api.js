@@ -79,9 +79,9 @@ const addChat = async(newchat) => {
     const resp = await axios.post(`${apiURL}/api/chat`, {
       //data to be posted to the url
       "_id" : newchat["_id"],
-        "members": newchat["members"],
-        "creator": newchat["creator"],            
-        "delete_by": newchat["delete_by"]
+      "members": newchat["members"],
+      "creator": newchat["creator"],            
+      "delete_by": newchat["delete_by"]
     })
     .then(console.log("new chat added"));
   } catch (err) {

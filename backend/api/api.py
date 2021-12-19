@@ -29,43 +29,51 @@ def home():
 @app.route('/api/users', methods=['GET'])
 def getAllUser():
     all_user = list(usercollection.find({}))
-    return json.dumps(all_user, default=json_util.default)
+    if all_user:
+        return json.dumps(all_user, default=json_util.default)
+    else:
+        return "No user exist"
 
 #get user by user id
 @app.route('/api/users/<userId>', methods=['GET'])
 def getUserById(userId):
     targetUser = list(usercollection.find({'_id' : int(userId)}))
-    return json.dumps(targetUser, default=json_util.default)
+    if targetUser:
+        return json.dumps(targetUser, default=json_util.default)
+    else: 
+        return "User does not exist"
     
 #create a new user
 @app.route('/api/users', methods=['POST']) 
 def create_user():
     message = request.json
+    print('Hello', message, request)
     newUserId = message['_id']
     newName = message['name']
     newEmail = message['email']
     newUsername = message['username']
     newPassword = message['password']
-    usercollection.insert_one({
-        "_id" : newUserId,
-        "name": newName,
-        "email": newEmail,
-        "Username": newUsername,            
-        "Password": newPassword
-        })
-    return jsonify({
-        "_id" : newUserId,
-        "name": newName,
-        "email": newEmail,
-        "Username": newUsername,            
-        "Password": newPassword
-        })
+    try:
+        usercollection.insert_one({
+            "_id" : newUserId,
+            "name": newName,
+            "email": newEmail,
+            "Username": newUsername,            
+            "Password": newPassword
+            })
+        return "True"
+    except Exception as e:
+        print("An exception occured ::", e)
+        return "False"
 
 #get all chats
 @app.route('/api/chat', methods=['GET'])
 def getAllChat():
     all_chat = list(chatcollection.find({}))
-    return json.dumps(all_chat, default=json_util.default)
+    if all_chat:
+        return json.dumps(all_chat, default=json_util.default)
+    else: 
+        return "No chat exist"
 
 #get chat by chat id
 @app.route('/api/chat/<chatId>', methods=['GET'])
@@ -77,29 +85,46 @@ def getChatById(chatId):
 @app.route('/api/chat', methods=['POST'])
 def create_chat_room():
     chat = request.json
+    print('Hello', chat, request)
     newRoomId = chat['_id']
     newMembers = chat['members']
     newCreator = chat['creator']
     newDeleteBy = chat['delete_by']
-    chatcollection.insert_one({
-        "_id" : newRoomId,
-        "members": newMembers,
-        "creator": newCreator,            
-        "delete_by": newDeleteBy
-        })
-    return jsonify({
-        "status": "sucess",
-        "_id" : newRoomId,
-        "members": newMembers,
-        "creator": newCreator,            
-        "delete_by": newDeleteBy
-        })
+    try:
+        chatcollection.insert_one({
+            "_id" : newRoomId,
+            "members": newMembers,
+            "creator": newCreator,            
+            "delete_by": newDeleteBy
+            })
+        return "True"
+    except Exception as e:
+        print("An exception occured ::", e)
+        return "False"
+
+@app.route('/api/message', methods=["GET"])
+def getAllMessage():
+    all_msg = list(msgcollection.find({}))
+    if all_msg:
+        return json.dumps(all_msg, default=json_util.default)
+    else: 
+        return "No Message exist"
+
 
 @app.route('/api/message', methods=["POST"])
 def post_message():
     request_payload = request.json
-    msgcollection.insert_one({"convo_id": request_payload["convo_id"], "author": request_payload["author"], "content": request_payload["content"]})
-    return 'Message sent'
+    print("Hello", request_payload, request)
+    try:
+        msgcollection.insert_one({
+            "convo_id": request_payload["convo_id"], 
+            "author": request_payload["author"], 
+            "content": request_payload["content"]
+            })
+        return "True"
+    except Exception as e:
+        print("An exception occured ::", e)
+        return "False"
 
 @app.route('/api/<convo_id>', methods=["GET"])
 def get_all(convo_id):                                  
