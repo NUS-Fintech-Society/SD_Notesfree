@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axios = require('axios').default;
 
-const apiURL = 'http://localhost:3000/'
+const apiURL = 'http://localhost:5000/'
 
 // Get all users:GET /api/users 
 // Get user by user id:GET /api/users/userId 
@@ -124,3 +124,8 @@ const addMessage = async(newmessage) => {
     console.log("err: " + err);
   }
 };
+
+module.exports = {
+  addMessage, getMessageById, getAllMessage, addChat,
+  getChatById,getAllChat, addUser, getUserById, getAllUser
+}
