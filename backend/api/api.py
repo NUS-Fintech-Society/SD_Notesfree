@@ -20,6 +20,13 @@ msgcollection = db["messages"]
 app = Flask(__name__)
 cors = CORS(app)
 
+db = cluster["test"]
+usercollection = db["user"]
+chatcollection = db["chat"]
+msgcollection = db["messages"]
+
+app = Flask(__name__)
+
 @app.route('/', methods=['GET'])
 def home():
     text = "<h1>NUSFintech Society Notes</h1><p>Under Development</p>"
