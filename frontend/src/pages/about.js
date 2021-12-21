@@ -50,13 +50,13 @@ const getAllUser = async () => {
 
 const addUser = async() => {
   axios
-    .post(`${apiURL}/api/adduser`, {
+    .post(`${apiURL}/api/users`, {
       //data to be posted to the url
       '_id': 1,
       'name': "test",
       'email': 'testemail',
-      'Username': 'testUname',
-      'Password': 'testPS'
+      'username': 'testUname',
+      'password': 'testPS'
     })
     .then(res => itsWorking(res))
     .catch(err => console.error(err));
