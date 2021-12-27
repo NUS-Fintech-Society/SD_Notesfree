@@ -27,51 +27,96 @@ const About= () =>  {
 
 const apiURL = 'http://localhost:5000';
 
-// function getAllUser(){
-//   axios
-//   .get(`${apiURL}/api/users`, {
-//     timeout: 5000
-//   })
-//   .then(res => itsWorking(res))
-//   .catch(err => console.log("err=="+err));
-// }
 
 const getAllUser = async () => {
   try {
       //const resp = await axios.get('`${apiURL}/api/users`');
       const resp = await axios.get(`${apiURL}/api/users`);
-      console.log(resp);
+      return(resp.data);
   } catch (err) {
       // Handle Error Here
       console.log("err: " + err);
   }
 };
 
+const getUserById = async (id) => {
+  try {
+      //const resp = await axios.get('`${apiURL}/api/users`');
+      const resp = await axios.get(`${apiURL}/api/users/${id}`);
+      return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
 
-const addUser = async() => {
-  axios
-    .post(`${apiURL}/api/adduser`, {
+const addUser = async(newuser) => {
+  try {
+    //const resp = await axios.get('`${apiURL}/api/users`');
+    const response = await axios.post(`${apiURL}/api/users`, {
       //data to be posted to the url
-      '_id': 1,
-      'name': "test",
-      'email': 'testemail',
-      'Username': 'testUname',
-      'Password': 'testPS'
+      "_id": newuser["_id"],
+      "name": newuser["name"],
+      "email": newuser["email"],
+      "username": newuser["username"],
+      "password": newuser["password"]
     })
-    .then(res => itsWorking(res))
-    .catch(err => console.error(err));
+    console.log(response);
+  } catch (err) {
+    // Handle Error Here
+    console.log("err: " + err);
+  }
 }
 
-function itsWorking(){
-  console.log(res);
-  console.log('its working');
-}
+const addChat = async (newchat) => {
+  try {
+    const response = await axios.post(`${apiURL}/api/chat`, {
+      //data to be posted to the url
+      "_id" : newchat["_id"],
+      "members": newchat["members"],
+      "creator": newchat["creator"],            
+      "delete_by": newchat["delete_by"]
+    })
+    console.log(response);
+  } catch (err) {
+    // Handle Error Here
+    console.log("err: " + err);
+  }
+};
 
-// const axiosInstance = axios.create({
-//   // Other custom settings
-//   baseURL: 'https://jsonplaceholder.typicode.com'
-// });
+const addMessage = async(newmessage) => {
+  try {
+    const resp = await axios.post(`${apiURL}/api/message`, {
+      //data to be posted to the url
+      "convo_id": newmessage["convo_id"], 
+      "author": newmessage["author"], 
+      "content": newmessage["content"]
+    })
+    .then(console.log("new message added"));
+  } catch (err) {
+    // Handle Error Here
+    console.log("err: " + err);
+  }
+};
 
-getAllUser();
-addUser();
+const getChatById = async (id) => {
+  try {
+      const resp = await axios.get(`${apiURL}/api/chat/${id}`);
+      return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
+
+const getAllChat = async () => {
+  try {
+      const resp = await axios.get(`${apiURL}/api/chat`);
+      return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
+
 export default About;
