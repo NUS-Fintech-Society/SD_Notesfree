@@ -1,6 +1,6 @@
 import {Typography, makeStyles} from "@material-ui/core";
 import axios from 'axios';
-
+import {addUser} from '../api/api'
 const useStyles = makeStyles( (theme) => ({
 
   Background: {
@@ -24,5 +24,14 @@ const About= () =>  {
     </div>
   );
 }
+const test = {
+  //data to be posted to the url
+  '_id': 16,
+  'name': "test",
+  'email': 'testemail',
+  'username': 'testUname',
+  'password': 'testPS'
+}
+console.log(addUser(test))
 
 export default About;

@@ -3,8 +3,7 @@ from pymongo import MongoClient, mongo_client
 import json 
 from bson import json_util
 import pymongo
-from flask_cors import CORS, cross_origin
-import logging
+from flask_cors import CORS
 
 #cluster = pymongo.MongoClient("mongodb+srv://user1:12345@cluster1.jyylb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
@@ -20,7 +19,6 @@ msgcollection = db["messages"]
 
 app = Flask(__name__)
 cors = CORS(app)
-logging.getLogger('flask_cors').level = logging.DEBUG
 
 @app.route('/', methods=['GET'])
 def home():
