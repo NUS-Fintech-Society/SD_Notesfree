@@ -14,10 +14,13 @@ const apiURL = 'http://localhost:5000'
 // Get all messages: GET /api/message 
 // Get message by message id: GET /api/message/messId
 
-
 const getAllUser = async () => {
   try {
-      const resp = await axios.get(`${apiURL}/api/users`);
+      const resp = await axios.get(`${apiURL}/api/users`,{
+        headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        }});
       return(resp.data);
   } catch (err) {
       // Handle Error Here

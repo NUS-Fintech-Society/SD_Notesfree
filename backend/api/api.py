@@ -1,19 +1,10 @@
-import flask
-
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
-
-
-@app.route('/', methods=['GET'])
-def home():
-    return "<h1>Hello World</h1><p>This is where you start working from</p>"
-
 from flask import Flask, request, jsonify
 from pymongo import MongoClient, mongo_client
 import json 
 from bson import json_util
 import pymongo
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+import logging
 
 #cluster = pymongo.MongoClient("mongodb+srv://user1:12345@cluster1.jyylb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
@@ -29,6 +20,7 @@ msgcollection = db["messages"]
 
 app = Flask(__name__)
 cors = CORS(app)
+logging.getLogger('flask_cors').level = logging.DEBUG
 
 db = cluster["test"]
 usercollection = db["user"]
@@ -62,6 +54,7 @@ def getUserById(userId):
     
 #create a new user
 @app.route('/api/users', methods=['POST']) 
+@cross_origin()
 def create_user():
     message = request.json
     print('Hello', message, request)

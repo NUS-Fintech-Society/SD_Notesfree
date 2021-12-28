@@ -21,8 +21,8 @@ addUser(testuser);
 
 export default class joinus extends Component {
   state = {
-    firstname: "",
-    lastname: "",
+    name: "",
+    username: "",
     email: "",
     password: ""
   };
@@ -45,8 +45,8 @@ export default class joinus extends Component {
           onSubmit={this.handleSubmit} 
           >
         <CustomInput
-            labelText="First Name"
-            id="firstname"
+            labelText="Name"
+            id="name"
             formControlProps={{
               fullWidth: true
             }}
@@ -54,8 +54,8 @@ export default class joinus extends Component {
             type="text"
           />
           <CustomInput
-            labelText="Last Name"
-            id="lastname"
+            labelText="Userame"
+            id="username"
             formControlProps={{
               fullWidth: true
             }}
