@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //import '../styles.css';
 import CustomInput from '../components/CustomInput';
 import Button from "../components/Button";
-import addUser from "./api/api";
+import {addUser} from "../api/api"
 
 const submitform = async(event) =>{
   event.preventDefault();
@@ -17,10 +17,11 @@ var testuser ={
   "password": "pw"
 }
 
-addUser(testuser);
+//addUser(testuser);
 
 export default class joinus extends Component {
   state = {
+    _id: Math.floor(Math.random() * 200),
     name: "",
     username: "",
     email: "",
@@ -34,7 +35,7 @@ export default class joinus extends Component {
   handleSubmit = (e) => {
     alert('submit form');
     e.preventDefault();
-    //addUser(testuser);
+    addUser(this.state);
     console.log(this.state);
   }
 
