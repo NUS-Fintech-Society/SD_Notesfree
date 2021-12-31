@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axios = require('axios').default;
 
-const apiURL = 'http://localhost:3000/'
+const apiURL = 'http://localhost:5000'
 
 // Get all users:GET /api/users 
 // Get user by user id:GET /api/users/userId 
@@ -51,7 +51,7 @@ const addUser = async(newuser) => {
     // Handle Error Here
     console.log("err: " + err);
   }
-}
+};
 
 
 const getAllChat = async () => {
@@ -76,6 +76,7 @@ const getChatById = async (id) => {
 
 const addChat = async(newchat) => {
   try {
+    console.log(newchat);
     const resp = await axios.post(`${apiURL}/api/chat`, {
       //data to be posted to the url
       "_id" : newchat["_id"],
@@ -124,3 +125,7 @@ const addMessage = async(newmessage) => {
     console.log("err: " + err);
   }
 };
+
+module.exports = {
+  addChat, getAllChat
+}
