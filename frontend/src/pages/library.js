@@ -203,7 +203,7 @@ const Library = () => {
         </Link>,
       ];
 
-    const participants = [1, 2, 3, 4, 5]; 
+    const participants = [1, 2, 3, 4 , 5, 6]; 
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -251,8 +251,9 @@ const Library = () => {
                                     <Typography variant="body1" className={classes.Date}> Happened on 8/10/2021 </Typography>
                                 </div>
                                 <div className={classes.Image}> 
-                                    <Image src={ViewTranscript} alt="View transcript" width="110" height="70"/>
-
+                                    <Button> 
+                                        <Image src={ViewTranscript} alt="View transcript" width="110" height="70"/>
+                                    </Button>
                                 </div>
                             </div>
                                     {/* <Typography variant="body1" className={classes.Date}> Happened on 8/10/2021 </Typography> */}
@@ -263,7 +264,7 @@ const Library = () => {
                                 <div className={classes.ImageContainer}> 
                                     { 
                                     
-                                    participants.map((e) => 
+                                    participants.slice(0, 5).map((e) => 
                                     
                                 
                                     (
@@ -277,8 +278,7 @@ const Library = () => {
                                 </div>
                                 </Button> 
                                 <div className={classes.PlusParticipants}> 
-                                    <Typography className={classes.Plus} variant='body1'>  + 10 others</Typography>
-
+                                    <Typography className={classes.Plus} variant='body1'> {participants.length > 5? '+ ' +  `${participants.length - 5}` + ' others' : ''} </Typography>
                                 </div>
                             </div> 
                             <Typography variant="body1" className={classes.Description}> Description </Typography>
