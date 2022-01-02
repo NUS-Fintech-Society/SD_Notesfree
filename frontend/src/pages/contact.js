@@ -13,7 +13,7 @@ const useStyles = makeStyles( (theme) => ({
 }));
 
 
-const Contact= () =>  {
+const Contact = () =>  {
   const classes = useStyles();
   return (
     <div className = {classes.Background}>
@@ -25,4 +25,3 @@ const Contact= () =>  {
 }
 
 export default Contact;
-

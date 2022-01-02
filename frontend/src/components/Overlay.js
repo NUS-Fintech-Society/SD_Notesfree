@@ -98,13 +98,22 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row', 
         justifyContent: 'center', 
         alignItems: 'center'
-    }
+    }, 
+
+    Background: {
+        height: "80px",
+        background: "#22536E",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        color: "#F6C15D",
+        borderBottom: "5px solid #F6C15D",
+    }, 
+
+    
   }));
   
-  export default function BasicModal() {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  export default function BasicModal(props) {
     const classes = useStyles(); 
 
     const [smallOpenGreen, setsmallOpenGreen] = useState(false); 
@@ -126,18 +135,16 @@ const useStyles = makeStyles((theme) => ({
 
     return (
       <div>
-        <Button onClick={handleOpen}>Open modal</Button>
+        {/* <Button onClick={handleOpen} className={classes.Background}>Open modal</Button> */}
         <Modal
-          open={open}
-          onClose={handleClose}
+          open={props.open}
+          onClose={props.handleClose}
           aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
+          aria-describedby="modal-modal-description">
+          <ClickAwayListener onClickAway={props.handleClose}> 
+
           <Box className={classes.Overall}>
-            <Button onClick={handleClose}> 
-                <ClearIcon className={classes.ClearIcon}/>
-            </Button>
-            <Typography variant="h5" className={classes.HeadingText}>
+            <Typography variant="h5" className={classes.HeadingText} style={{marginTop: '20px'}}>
               16 Participants
             </Typography>
             <div className={classes.Body}> 
@@ -223,6 +230,8 @@ const useStyles = makeStyles((theme) => ({
                 </Box> 
             </div> 
           </Box>
+          </ClickAwayListener>
+
         </Modal>
       </div>
     );
