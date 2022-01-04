@@ -35,6 +35,16 @@ const getUserById = async (id) => {
   }
 };
 
+const getUserByUsername = async(username) => {
+  try {
+    const resp = await axios.get(`${apiURL}/api/users/${username}`);
+    return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
+
 const addUser = async(newuser) => {
   try {
     //const resp = await axios.get('`${apiURL}/api/users`');
@@ -126,6 +136,6 @@ const addMessage = async(newmessage) => {
 };
 
 module.exports = {
-  addMessage, getMessageById, getAllMessage, addChat,
+  addMessage, getMessageById, getUserByUsername, getAllMessage, addChat,
   getChatById,getAllChat, addUser, getUserById, getAllUser
 }
