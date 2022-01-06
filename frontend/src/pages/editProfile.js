@@ -1,8 +1,10 @@
-import { Typography, makeStyles } from '@material-ui/core'; 
+import { Typography, makeStyles, Button } from '@material-ui/core'; 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import EditIcon from '@mui/icons-material/Edit';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Link from 'next/link';
+import Input from '@mui/material/Input';
+import Image from 'next/image';
+import Confirm from '../../public/Confirm.svg';
+
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -71,8 +73,6 @@ const useStyles = makeStyles( (theme) => ({
     }, 
 
     Name: {
-        color: "rgba(16, 31, 64, 1)", 
-        fontWeight: "bold",
         alignSelf: 'center', 
         marginLeft: '2vw'
     }, 
@@ -81,39 +81,43 @@ const useStyles = makeStyles( (theme) => ({
         width: '95vw', 
     }, 
     Info: {
-        color: "rgba(16, 31, 64, 1)", 
+        color: "rgba(16, 31, 64, 1)",
+        width: '25vw' 
+    }, 
+    Confirm: {
+        width: '10vw', 
+        height: '10vh', 
+        marginTop: '10vh'
     }
 })); 
 
-const Profile = () => {
+const EditProfile = () => {
     const classes = useStyles(); 
+    const ariaLabel = { 'aria-label': 'description' };
+
     return (
         <div className={classes.Background}> 
             <div className={classes.Basis}> 
                 <div className={classes.Banner}> 
                     <Typography className={classes.Profile}> Profile</Typography>
-                    <Link href="/editProfile" passHref> 
-                        <EditIcon className={classes.Pencil} sx={{color: "rgba(16, 31, 64, 1)"}}/>
-                    </Link>
                     <MoreHorizIcon color="action" className={classes.Dots}/>
                 </div>
                 <div className={classes.Body}> 
                     <div className={classes.PictureWithName}> 
                         <AccountCircleIcon className={classes.Account}/>
-                        <Typography className={classes.Name}> Evan Ah </Typography> 
+                        <Input className={classes.Name} defaultValue="Evan Ah" inputProps={ariaLabel} />
                     </div> 
                     <div className={classes.PureInfo}> 
                         <Typography className={classes.Info} style={{fontWeight: "bold"}} variant="body2"> About you</Typography>
-                        <Typography className={classes.Info} variant="body2"> Hello! I am a legit person! </Typography>
+                        <Input maxRows={5} multiline className={classes.Info} defaultValue="Hello! I am a legit person!" inputProps={ariaLabel} />
                     </div>
-                    <div className={classes.PureInfo}> 
-                        <Typography className={classes.Info} style={{fontWeight: "bold"}} variant="body2"> Your Groups</Typography>
-                        <Typography className={classes.Info} variant="body2"> NUS Fintech Society </Typography>
-                    </div>
+                    <Button className={classes.Confirm}> 
+                        <Image src={Confirm} alt="Confirm" />
+                    </Button>
                 </div>
             </div> 
         </div>
     )
 }; 
 
-export default Profile; 
+export default EditProfile; 
