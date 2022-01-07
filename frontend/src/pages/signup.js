@@ -37,6 +37,26 @@ import React, { Component } from "react";
 //import '../styles.css';
 import CustomInput from '../components/CustomInput';
 import Button from "../components/Button";
+import {getUserByEmail, sha256} from "../api/api"
+
+function userExist(form){
+  getUserByEmail(form["email"]).then(userData => {
+    if ( userData === "User does not exist"){
+      alert("User does not exist");
+    } 
+    else {
+      sha256(form["password"]).then(hashedPassword => {
+        //console.log("input hash: "+ hashedPassword)
+        //console.log("database hash: " + userData[0]["password"])
+        if (hashedPassword === userData[0]["password"]){
+          alert("Logging in!!")
+        } else{
+          alert("wrong password")
+        }
+      });
+    }
+  });  
+}
 
 export default class signup extends Component {
   state = {
@@ -48,10 +68,19 @@ export default class signup extends Component {
     this.setState({ [e.currentTarget.id]: e.currentTarget.value });
   };
 
+  handleSubmit = (e) => {
+    alert('Sign in form submitted!');
+    e.preventDefault();
+    console.log(this.state);
+    userExist(this.state);
+  }
+
   render() {
     return (
       <div className="signup">
-        <form className="form">
+        <form className="form"
+          onSubmit={this.handleSubmit}
+          >
           <CustomInput
             labelText="Email"
             id="email"
@@ -71,7 +100,7 @@ export default class signup extends Component {
             type="password"
           />
 
-          <Button type="button" color="primary" className="form__custom-button">
+          <Button type="submit" color="primary" className="form__custom-button">
             Log in
           </Button>
         </form>

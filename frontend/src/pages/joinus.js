@@ -4,21 +4,6 @@ import CustomInput from '../components/CustomInput';
 import Button from "../components/Button";
 import {addUser} from "../api/api"
 
-const submitform = async(event) =>{
-  event.preventDefault();
-  console.log('check');
-};
-
-var testuser ={
-  "_id" : 25,
-  "name": "direct",
-  "email": "email",
-  "username": "name",
-  "password": "pw"
-}
-
-//addUser(testuser);
-
 export default class joinus extends Component {
   state = {
     _id: Math.floor(Math.random() * 200),
@@ -33,7 +18,7 @@ export default class joinus extends Component {
   };
 
   handleSubmit = (e) => {
-    alert('submit form');
+    alert('Sign up form submitted!');
     e.preventDefault();
     addUser(this.state);
     console.log(this.state);

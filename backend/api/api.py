@@ -4,6 +4,7 @@ import json
 from bson import json_util
 import pymongo
 from flask_cors import CORS
+import hashlib
 
 #cluster = pymongo.MongoClient("mongodb+srv://user1:12345@cluster1.jyylb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
@@ -19,6 +20,12 @@ msgcollection = db["messages"]
 
 app = Flask(__name__)
 cors = CORS(app)
+
+def hashing(password):
+    hashed = hashlib.sha256(password.encode())
+    print(hashed.hexdigest())
+    return hashed.hexdigest()
+
 
 @app.route('/', methods=['GET'])
 def home():
@@ -43,6 +50,13 @@ def getUserById(userId):
     else: 
         return "User does not exist"
     
+@app.route('/api/users/email/<Email>', methods=['GET'])
+def getUserByEmail(Email):
+    targetUser = list(usercollection.find({'email' : Email}))
+    if targetUser:
+        return json.dumps(targetUser, default=json_util.default)
+    else: 
+        return "User does not exist"
 #create a new user
 @app.route('/api/users', methods=['POST']) 
 def create_user():
@@ -50,9 +64,9 @@ def create_user():
     print('Hello', message, request)
     newUserId = message['_id']
     newName = message['name']
-    newEmail = message['email']
+    newEmail = message['email'].lower()
     newUsername = message['username']
-    newPassword = message['password']
+    newPassword = hashing(message['password'])
     try:
         usercollection.insert_one({
             "_id" : newUserId,
