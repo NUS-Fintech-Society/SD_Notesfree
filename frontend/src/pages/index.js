@@ -1,30 +1,30 @@
-import { Typography, makeStyles} from "@material-ui/core";
+import Head from 'next/head';
+import styled from 'styled-components';
 
-const useStyles = makeStyles( (theme) => ({
+const Hero = styled.div`
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+`;
 
-  Background: {
-    height: "90vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(105,180,222,0.7)",
-  }
-  
-}));
+const Heading = styled.h1`
+  color: #005;
+  font-size: 5rem;
+  font-weight: 200;
+`;
 
-
-const Home= () =>  {
-  const classes = useStyles();
+export default function Home() {
   return (
-    <div className = {classes.Background}>
-      <Typography variant="h2" align="center">
-        NotesFree
-      </Typography>
-    </div>
+    <>
+      <Head>
+        <title>Home</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <Hero>
+        <Heading>NotesFree</Heading>
+      </Hero>
+    </>
   );
 }
-
-export default Home;
-
-
-

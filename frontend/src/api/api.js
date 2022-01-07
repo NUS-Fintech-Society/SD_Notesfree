@@ -35,6 +35,16 @@ const getUserById = async (id) => {
   }
 };
 
+const getUserByEmail = async (email) => {
+  try {
+      const resp = await axios.get(`${apiURL}/api/users/email/${email}`);
+      return(resp.data);
+  } catch (err) {
+      // Handle Error Here
+      console.log("err: " + err);
+  }
+};
+
 const addUser = async(newuser) => {
   try {
     //const resp = await axios.get('`${apiURL}/api/users`');
@@ -125,7 +135,23 @@ const addMessage = async(newmessage) => {
   }
 };
 
+const sha256 = async(message)  => {
+  // encode as UTF-8
+  const msgBuffer = new TextEncoder().encode(message);                    
+
+  // hash the message
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+  // convert ArrayBuffer to Array
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+  // convert bytes to hex string                  
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
+
 module.exports = {
   addMessage, getMessageById, getAllMessage, addChat,
-  getChatById,getAllChat, addUser, getUserById, getAllUser
+  getChatById,getAllChat, addUser, getUserById, getAllUser, getUserByEmail, sha256
 }
