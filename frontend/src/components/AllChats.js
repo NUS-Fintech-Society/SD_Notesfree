@@ -1,6 +1,7 @@
 import { getAllChat } from "../pages/api/api.js";
 import React, {useState, useEffect} from "react";
-
+import SingleChat from "./SingleChat.js";
+import {Grid} from "@material-ui/core";
 
 function AllChats(){
 
@@ -17,7 +18,6 @@ function AllChats(){
         }
       };
 
-    
       useEffect(() => {
         fetchEvents().then(() => {
             setLoading(false);
@@ -29,19 +29,18 @@ function AllChats(){
     }
 
     return (
-        <div>
-        <ul>
+        <Grid container spacing={12} justifyContent = 'center'>
+    
             {!loading &&(data).map((chat) => (
         
-            <li key = {chat._id}>
-                <p>{chat.creator}</p>
-                <p>{chat.members}</p>
-                <p>{chat.delete_by}</p>
-            </li>
+            <Grid item key={chat._id}>
+                <SingleChat meetingName={chat._id} />
+            </Grid>
+                
         ))}
             
-        </ul>
-        </div>
+        </Grid>
+        
     );
 }
 

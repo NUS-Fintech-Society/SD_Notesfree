@@ -2,8 +2,7 @@ import { useRef, useState } from "react";
 import { addChat } from "../pages/api/api.js";
 import { Button, TextField} from "@material-ui/core";
 
-
-function NewChat() {
+function NewChatForm(props) {
   const MembersInputRef = useRef();
   const CreatorInputRef = useRef();
   const TitleInputRef = useRef();
@@ -13,11 +12,13 @@ function NewChat() {
   const [meetingDescription, setMeetingDescription] = useState({
     name: "Maximum of 200 words",
   });
- 
-  const handleChange = name => event => {
-    setMeetingDescription({ ...meetingDescription, [name]: event.target.value });
-  };
 
+  const handleChange = (name) => (event) => {
+    setMeetingDescription({
+      ...meetingDescription,
+      [name]: event.target.value,
+    });
+  };
 
   //end of variables and functions for word limit counter
 
@@ -34,21 +35,37 @@ function NewChat() {
       creator: newCreator,
       delete_by: newCreator,
     });
+
+    props.submitted();
   }
+
+
+
   return (
-    <form onSubmit = {submitHandler}
+    <form
+      onSubmit={submitHandler}
       style={{
         backgroundColor: "#F5F5F5",
-        borderRadius: 5,
         width: 554,
         position: "fixed",
-        alignSelf: "center",
-        justifySelf: "center"
+        top: "50%",
+        left: "50%",
+        marginLeft: -275,
+        marginTop: -275,
+        zIndex: "10",
       }}
     >
-        <h1 style = {{textAlign: "center", fontFamily: 
-    "Arial", fontStyle: "normal", color: "#101F40"}}> Add a new Meeting
-             </h1>
+      <h1
+        style={{
+          textAlign: "center",
+          fontFamily: "Arial",
+          fontStyle: "normal",
+          color: "#101F40",
+        }}
+      >
+        {" "}
+        Add a new Meeting
+      </h1>
       <div>
         <TextField
           label="Meeting Name"
@@ -57,7 +74,7 @@ function NewChat() {
           placeholder="Meeting Name"
           inputRef={TitleInputRef}
           margin="normal"
-          style = {{padding: 5, backgroundColor: "#FFFFFF"}}
+          style={{ padding: 5, backgroundColor: "#FFFFFF" }}
           fullWidth
         ></TextField>
       </div>
@@ -70,9 +87,7 @@ function NewChat() {
           placeholder="Owners' Email Addresses"
           inputRef={CreatorInputRef}
           margin="normal"
-          style = {{padding: 5, backgroundColor: "#FFFFFF"}}
-
-
+          style={{ padding: 5, backgroundColor: "#FFFFFF" }}
         ></TextField>
       </div>
       <div>
@@ -84,8 +99,7 @@ function NewChat() {
           placeholder="Invitees' Email Addresses"
           inputRef={MembersInputRef}
           margin="normal"
-          style = {{padding: 5, backgroundColor: "#FFFFFF"}}
-
+          style={{ padding: 5, backgroundColor: "#FFFFFF" }}
         ></TextField>
       </div>
       <div>
@@ -99,29 +113,34 @@ function NewChat() {
           margin="normal"
           variant="outlined"
           onChange={handleChange("name")}
-          inputProps = {{
-              maxLength: CHARACTER_LIMIT
+          inputProps={{
+            maxLength: CHARACTER_LIMIT,
           }}
-          helperText = {`${meetingDescription.name.length}/${CHARACTER_LIMIT}`}
-          name = "meetingDescription"
-          style = {{padding: 5, backgroundColor: "#FFFFFF"}}
-
-          
-          
+          helperText={`${meetingDescription.name.length}/${CHARACTER_LIMIT}`}
+          name="meetingDescription"
+          style={{ padding: 5, backgroundColor: "#FFFFFF" }}
         ></TextField>
       </div>
       <div>
-          <Button 
-          fullWidth
-          variant = "contained"
-          style = {{padding: 5, backgroundColor: "#F6C15D"}}>
-              Submit
+          <Button
+            variant="contained"
+            type="submit"
+            style={{ padding: 5, backgroundColor: "#F6C15D", margin: 2 }}
+          >
+            Submit
           </Button>
 
+          <Button
+            variant="contained"
+            type = "button"
+            onClick={props.clickedOnClose}
+            style={{ padding: 5, backgroundColor: "#F6C15D", margin: 2 }}
+          >
+            Close
+          </Button>
       </div>
-
     </form>
   );
 }
 
-export default NewChat;
+export default NewChatForm;

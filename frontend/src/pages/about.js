@@ -1,8 +1,10 @@
 import { Typography, makeStyles, Button, Box } from "@material-ui/core";
 import axios from "axios";
-import NewChat from "../components/NewChat.js";
+import NewChatButton from "../components/NewChatButton.js";
+import NewChatForm from "../components/NewChatForm.js";
+import SingleChat from "../components/SingleChat.js";
+import NewChatFormBackground from "../components/NewChatFormBackground.js";
 import AllChats from "../components/AllChats.js";
-import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import {useState} from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,28 +19,10 @@ const useStyles = makeStyles((theme) => ({
   Box: {
     backgroundColor: "#F5F5F5",
     borderRadius: "5px", 
-
-  },
-
-  Button: {
-    maxWidth: "302px",
-    minWidth: "302px",
-    maxHeight: "225px",
-    minHeight: "225px",
-    textTransform: "none",
-    backgroundColor: "#F5F5F5",
-    margin: "3px",
-    "&:hover": {
-    backgroundColor: "#EAEAEA",
-    display: "flex",
-    justifyContent: "center",
-    },
-  },
-
-  Icon: {
-    width: "80px",
-    height: "80px",
-    color: "#C4C4C4",
+    width: "95%",
+    height: "90%",
+    overflow: "scroll",
+    justifyContent: "space-evenly"
   }
 
 }));
@@ -49,17 +33,22 @@ const About = () => {
   function submitHandler() {
     setFormIsOpen(true);
   }
+  function closeForm() {
+    setFormIsOpen(false);
+  }
 
   const classes = useStyles();
   return (
     <div className={classes.Background}>
+      <Box className={classes.Box}>  
 
-      {/* <Button className={classes.Button} onClick={submitHandler}>
-        <CreateNewFolderIcon className={classes.Icon} />
-        {" Add a new Meeting"}
-      </Button>
-      {formIsOpen && <NewChat/>} */}
+       <NewChatButton submitNew={submitHandler}/>
+      
+      {formIsOpen && <NewChatForm clickedOnClose={closeForm} submitted={closeForm}/>} 
+
       <AllChats/>
+      </Box>
+      {/*<AllChats/> */}
 
     </div>
   );
