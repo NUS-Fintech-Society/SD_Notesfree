@@ -39,6 +39,7 @@ import CustomInput from '../components/CustomInput';
 import {getUserByEmail, sha256} from "../api/api";
 import IsLoggedInContext from "../store/isloggedin";
 import { Button, TextField, makeStyles} from "@material-ui/core";
+import {Router, useRouter} from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   Background: {
@@ -53,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 function Signup() {
 
   const isLoggedInCtx = useContext(IsLoggedInContext); 
+  const router = useRouter();
 
   function userExist(email, password){
   
@@ -70,6 +72,7 @@ function Signup() {
           const user = userData[0];
           //set context to logged in and user_id
           isLoggedInCtx.loggingIn(user);
+          router.push('/library');
 
         } else{
           alert("wrong password")
