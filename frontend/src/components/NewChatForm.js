@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { addChat } from "../pages/api/api.js";
+import { addChat } from "../api/api.js";
 import { Button, TextField} from "@material-ui/core";
 
 function NewChatForm(props) {

@@ -6,6 +6,7 @@ import SingleChat from "../components/SingleChat.js";
 import NewChatFormBackground from "../components/NewChatFormBackground.js";
 import AllChats from "../components/AllChats.js";
 import {useState} from "react";
+import {addUser} from '../api/api';
 
 const useStyles = makeStyles((theme) => ({
   Background: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const About = () => {
+const Library = () => {
 
   const [formIsOpen, setFormIsOpen] = useState(false);
   function submitHandler() {
@@ -52,54 +53,15 @@ const About = () => {
 
     </div>
   );
-};
-
-const apiURL = "http://localhost:5000";
-
-// function getAllUser(){
-//   axios
-//   .get(`${apiURL}/api/users`, {
-//     timeout: 5000
-//   })
-//   .then(res => itsWorking(res))
-//   .catch(err => console.log("err=="+err));
-// }
-
-const getAllUser = async () => {
-  try {
-    //const resp = await axios.get('`${apiURL}/api/users`');
-    const resp = await axios.get(`${apiURL}/api/users`);
-    console.log(resp);
-  } catch (err) {
-    // Handle Error Here
-    console.log("err: " + err);
-  }
-};
-
-const addUser = async () => {
-  axios
-    .post(`${apiURL}/api/adduser`, {
-      //data to be posted to the url
-      _id: 1,
-      name: "test",
-      email: "testemail",
-      Username: "testUname",
-      Password: "testPS",
-    })
-    .then((res) => itsWorking(res))
-    .catch((err) => console.error(err));
-};
-
-function itsWorking() {
-  console.log(res);
-  console.log("its working");
 }
+const test = {
+  //data to be posted to the url
+  '_id': 16,
+  'name': "test",
+  'email': 'testemail',
+  'username': 'testUname',
+  'password': 'testPS'
+}
+console.log(addUser(test))
 
-// const axiosInstance = axios.create({
-//   // Other custom settings
-//   baseURL: 'https://jsonplaceholder.typicode.com'
-// });
-
-getAllUser();
-addUser();
-export default About;
+export default Library;
