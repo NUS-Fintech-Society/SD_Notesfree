@@ -61,7 +61,7 @@ const addUser = async(newuser) => {
     // Handle Error Here
     console.log("err: " + err);
   }
-}
+};
 
 
 const getAllChat = async () => {
@@ -86,6 +86,7 @@ const getChatById = async (id) => {
 
 const addChat = async(newchat) => {
   try {
+    console.log(newchat);
     const resp = await axios.post(`${apiURL}/api/chat`, {
       //data to be posted to the url
       "_id" : newchat["_id"],

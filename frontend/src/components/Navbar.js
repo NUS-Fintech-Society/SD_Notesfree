@@ -3,6 +3,8 @@ import {AppBar, Toolbar, CssBaseline, Typography, makeStyles} from "@material-ui
 import Link from 'next/link';
 import Logo from '../../public/Logo.png';
 import { imageConfigDefault } from 'next/dist/server/image-config';
+import { useContext } from 'react';
+import IsLoggedInContext from '../store/isloggedin';
 
 const useStyles = makeStyles( (theme) => ({
   
@@ -38,6 +40,11 @@ const Navbar = () => {
 
     const classes = useStyles();
 
+    const isLoggedInCtx = useContext(IsLoggedInContext);
+
+    console.log(isLoggedInCtx.loggedIn);
+    
+    if (isLoggedInCtx.loggedIn == false) {
     return (
       <AppBar position = "static">
         <CssBaseline />
@@ -53,9 +60,6 @@ const Navbar = () => {
             <Link href='/' passHref>
               <div className = {classes.StyledLink}>Home</div>
             </Link>
-            <Link href='/about' passHref>
-              <div className = {classes.StyledLink}>About</div>
-            </Link>
             <Link href='/contact' passHref>
               <div className = {classes.StyledLink}>Contact</div>
             </Link>
@@ -66,7 +70,31 @@ const Navbar = () => {
         </Toolbar>
         </AppBar>
       );
-    };
+    } else {
+      return (
+        <AppBar position = "static">
+        <CssBaseline />
+        <Toolbar className ={classes.Nav}>
+          <div>
+            <Link href='/library' passHref>
+              <div className = {classes.StyledLink}>
+                <Image src={Logo} alt="Logo" width="110" height="70" />
+              </div>
+            </Link>
+          </div>
+          <div className = {classes.NavLinks}>
+            <Link href='/library' passHref>
+              <div className = {classes.StyledLink}>Library</div>
+            </Link>
+            <Link href='/login' passHref>
+              <div className = {classes.StyledLink}>Login</div>
+            </Link>
+          </div>
+        </Toolbar>
+        </AppBar>
+      );
+    }
+  }
     
     export default Navbar;
     

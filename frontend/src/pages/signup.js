@@ -33,23 +33,47 @@ export default function Home() {
 }
 */
 
-import React, { Component } from "react";
+import {useRef, useState, useContext} from "react";
 //import '../styles.css';
 import CustomInput from '../components/CustomInput';
-import Button from "../components/Button";
-import {getUserByEmail, sha256} from "../api/api"
+import {getUserByEmail, sha256} from "../api/api";
+import IsLoggedInContext from "../store/isloggedin";
+import { Button, TextField, makeStyles} from "@material-ui/core";
+import {Router, useRouter} from "next/router";
 
-function userExist(form){
-  getUserByEmail(form["email"]).then(userData => {
+const useStyles = makeStyles((theme) => ({
+  Background: {
+    height: "90vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(105,180,222,0.7)",
+  }
+}));
+
+function Signup() {
+
+  const isLoggedInCtx = useContext(IsLoggedInContext); 
+  const router = useRouter();
+
+  function userExist(email, password){
+  
+  getUserByEmail(email).then(userData => {
+    console.log(userData);
     if ( userData === "User does not exist"){
       alert("User does not exist");
     } 
     else {
-      sha256(form["password"]).then(hashedPassword => {
+      sha256(password).then(hashedPassword => {
         //console.log("input hash: "+ hashedPassword)
         //console.log("database hash: " + userData[0]["password"])
         if (hashedPassword === userData[0]["password"]){
-          alert("Logging in!!")
+          alert("Logging in!!");
+          const user = userData[0];
+          //set context to logged in and user_id
+          isLoggedInCtx.loggingIn(user);
+          router.push('/library');
+
         } else{
           alert("wrong password")
         }
@@ -57,8 +81,92 @@ function userExist(form){
     }
   });  
 }
+    const EmailInputRef = useRef();
+    const PasswordInputRef = useRef();
 
-export default class signup extends Component {
+    function submitHandler(event) {
+      event.preventDefault();
+      const email = EmailInputRef.current.value;
+      const password = PasswordInputRef.current.value;
+
+      userExist(email, password);
+    }
+
+    const classes = useStyles();
+
+    return (
+
+      <div className={classes.Background}>
+      <form
+        onSubmit={submitHandler}
+        style={{
+          backgroundColor: "#F5F5F5",
+          width: 554,
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          marginLeft: -275,
+          marginTop: -275,
+          zIndex: "10",
+        }}
+      >
+        <h1
+          style={{
+            textAlign: "center",
+            fontFamily: "Arial",
+            fontStyle: "normal",
+            color: "#101F40",
+          }}
+        >
+          {" "}
+          Log In
+        </h1>
+        <div>
+          <TextField
+            label="Email"
+            variant="outlined"
+            id="Email"
+            placeholder="Email"
+            inputRef={EmailInputRef}
+            margin="normal"
+            style={{ padding: 5, backgroundColor: "#FFFFFF" }}
+            fullWidth
+          ></TextField>
+        </div>
+        <div>
+          <TextField
+            type = "password"
+            label="Password"
+            fullWidth
+            variant="outlined"
+            id="Password"
+            placeholder="Password"
+            inputRef={PasswordInputRef}
+            margin="normal"
+            style={{ padding: 5, backgroundColor: "#FFFFFF" }}
+          ></TextField>
+        </div>
+        
+        <div>
+            <Button
+              variant="contained"
+              type="submit"
+              fullWidth 
+              style={{ padding: 5, backgroundColor: "#F6C15D", margin: 2 }}
+            >
+              Submit
+            </Button>
+  
+        </div>
+      </form>
+      </div>
+    );
+  }
+
+  export default Signup;
+
+
+/* export default class signup extends Component {
   state = {
     email: "",
     password: ""
@@ -107,4 +215,5 @@ export default class signup extends Component {
       </div>
     );
   }
-}
+} */ 
+
