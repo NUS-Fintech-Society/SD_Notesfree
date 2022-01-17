@@ -41,7 +41,7 @@ function AllChats(){
             {!loading && (filteredMeetings).map((chat) => ( 
         
                 <Grid item key={chat._id}>
-                    <SingleChat meetingName={chat._id} />
+                    <SingleChat meetingName={chat.meeting_name} />
                 </Grid>
             
                 
