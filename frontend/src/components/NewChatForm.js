@@ -28,12 +28,15 @@ function NewChatForm(props) {
     const newMembers = MembersInputRef.current.value;
     const newCreator = CreatorInputRef.current.value;
     const newTitle = TitleInputRef.current.value;
+    const newMeetingDescription = meetingDescription;
 
     addChat({
-      _id: newTitle,
+      _id: (''+ (new Date()).getTime()),
       members: newMembers,
       creator: newCreator,
       delete_by: newCreator,
+      meeting_name: newTitle,
+      meeting_description: newMeetingDescription,
     });
 
     props.submitted();

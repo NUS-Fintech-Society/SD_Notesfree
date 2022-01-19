@@ -92,7 +92,9 @@ const addChat = async(newchat) => {
       "_id" : newchat["_id"],
       "members": newchat["members"],
       "creator": newchat["creator"],            
-      "delete_by": newchat["delete_by"]
+      "delete_by": newchat["delete_by"],
+      "meeting_name": newchat["meeting_name"],
+      "meeting_description": newchat["meeting_description"]
     })
     .then(console.log("new chat added"));
   } catch (err) {

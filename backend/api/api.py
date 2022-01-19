@@ -104,12 +104,16 @@ def create_chat_room():
     newMembers = chat['members']
     newCreator = chat['creator']
     newDeleteBy = chat['delete_by']
+    newMeetingName = chat['meeting_name']
+    newMeetingDescription = chat['meeting_description']
     try:
         chatcollection.insert_one({
             "_id" : newRoomId,
             "members": newMembers,
             "creator": newCreator,            
-            "delete_by": newDeleteBy
+            "delete_by": newDeleteBy,
+            "meeting_name": newMeetingName,
+            "meeting_description": newMeetingDescription,
             })
         return "True"
     except Exception as e:
