@@ -9,6 +9,7 @@ const useStyles = makeStyles( (theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    justifyItems: "center"
   }
   
 }));
@@ -20,7 +21,7 @@ const Footer = () => {
   return (
     <div className = {classes.FooterSection}>
       <p>NUS Fintech Society 2021 &copy; All Rights Reserved</p>
-      </div>
+    </div>
   );
 };
 
