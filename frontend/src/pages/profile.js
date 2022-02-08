@@ -3,6 +3,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Link from 'next/link';
+import React, {useContext} from "react";
+import IsLoggedInContext from "../store/isloggedin.js";
+
+
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -86,6 +90,12 @@ const useStyles = makeStyles( (theme) => ({
 })); 
 
 const Profile = () => {
+
+
+    const loggedInCtx = useContext(IsLoggedInContext);
+    const userName = loggedInCtx.user_name;
+    console.log(userName);
+
     const classes = useStyles(); 
     return (
         <div className={classes.Background}> 
@@ -100,7 +110,7 @@ const Profile = () => {
                 <div className={classes.Body}> 
                     <div className={classes.PictureWithName}> 
                         <AccountCircleIcon className={classes.Account}/>
-                        <Typography className={classes.Name}> Evan Ah </Typography> 
+                        <Typography className={classes.Name}> {userName} </Typography> 
                     </div> 
                     <div className={classes.PureInfo}> 
                         <Typography className={classes.Info} style={{fontWeight: "bold"}} variant="body2"> About you</Typography>

@@ -36,12 +36,13 @@ function AllChats(){
     console.log(userEmail);
 
     return (
-        <Grid container spacing={12} justifyContent = 'center'>
+        <Grid container spacing={10} justifyContent = 'center'>
     
             {!loading && (filteredMeetings).map((chat) => ( 
         
                 <Grid item key={chat._id}>
-                    <SingleChat meetingName={chat.meeting_name} />
+                    <SingleChat meetingName={chat.meeting_name} 
+                       meetingID = {chat._id}/>
                 </Grid>
             
                 

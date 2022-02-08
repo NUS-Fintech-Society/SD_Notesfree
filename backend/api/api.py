@@ -92,7 +92,7 @@ def getAllChat():
 #get chat by chat id
 @app.route('/api/chat/<chatId>', methods=['GET'])
 def getChatById(chatId):
-    targetChat = list(chatcollection.find({'_id' : int(chatId)}))
+    targetChat = list(chatcollection.find({'_id' : chatId}))
     return json.dumps(targetChat, default=json_util.default)
 
 #create a chat room

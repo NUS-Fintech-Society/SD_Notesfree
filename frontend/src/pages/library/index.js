@@ -1,12 +1,12 @@
 import { Typography, makeStyles, Button, Box } from "@material-ui/core";
 import axios from "axios";
-import NewChatButton from "../components/NewChatButton.js";
-import NewChatForm from "../components/NewChatForm.js";
-import SingleChat from "../components/SingleChat.js";
-import NewChatFormBackground from "../components/NewChatFormBackground.js";
-import AllChats from "../components/AllChats.js";
+import NewChatButton from "../../components/NewChatButton.js";
+import NewChatForm from "../../components/NewChatForm.js";
+import SingleChat from "../../components/SingleChat.js";
+import NewChatFormBackground from "../../components/NewChatFormBackground.js";
+import AllChats from "../../components/AllChats.js";
 import {useState} from "react";
-import {addUser} from '../api/api';
+import {addUser} from '../../api/api';
 
 const useStyles = makeStyles((theme) => ({
   Background: {

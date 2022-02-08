@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const axios = require('axios').default;
+//const axios = axios.default;
 
 const apiURL = 'http://localhost:5000'
 

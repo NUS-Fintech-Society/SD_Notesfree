@@ -3,8 +3,11 @@ import {AppBar, Toolbar, CssBaseline, Typography, makeStyles} from "@material-ui
 import Link from 'next/link';
 import Logo from '../../public/Logo.png';
 import { imageConfigDefault } from 'next/dist/server/image-config';
+import TestThis from '../../public/TestThis.svg';
 import { useContext } from 'react';
 import IsLoggedInContext from '../store/isloggedin';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'; 
+
 
 const useStyles = makeStyles( (theme) => ({
   
@@ -70,20 +73,20 @@ const Navbar = () => {
         </Toolbar>
         </AppBar>
       );
-    } else {
-      return (
+    } else { 
+      return ( /*
         <AppBar position = "static">
         <CssBaseline />
         <Toolbar className ={classes.Nav}>
           <div>
-            <Link href='/library' passHref>
+            <Link href='/library/' passHref>
               <div className = {classes.StyledLink}>
                 <Image src={Logo} alt="Logo" width="110" height="70" />
               </div>
             </Link>
           </div>
           <div className = {classes.NavLinks}>
-            <Link href='/library' passHref>
+            <Link href='/library/' passHref>
               <div className = {classes.StyledLink}>Library</div>
             </Link>
             <Link href='/login' passHref>
@@ -91,8 +94,38 @@ const Navbar = () => {
             </Link>
           </div>
         </Toolbar>
-        </AppBar>
-      );
+        </AppBar> */
+        <AppBar position = "static">
+        <CssBaseline />
+        <Toolbar className ={classes.Nav}>
+          <div className={classes.NavLinks}>
+            <Link href='/' passHref>
+              <div className = {classes.StyledLink}>
+                <Image src={Logo} alt="Logo" width="110" height="70" />
+              </div>
+            </Link>
+            <Link href='/record' passHref> 
+                <div className={classes.StyledLink}>
+                    <Image src={TestThis} alt="Record Button" width="110" height="70" />
+                </div>
+            </Link>
+          </div>
+          <div className = {classes.NavLinks}>
+            <Link href='/library' passHref>
+              <div className = {classes.StyledLink}>Library</div>
+            </Link>
+            <Link href='/help' passHref>
+              <div className = {classes.StyledLink}>Help</div>
+            </Link>
+            <Link href='/profile' passHref>
+              <div className = {classes.StyledLink}>
+                  <AccountCircleIcon/>
+              </div>
+            </Link>
+          </div>
+        </Toolbar>
+      </AppBar>
+    );
     }
   }
     

@@ -1,6 +1,7 @@
 import {makeStyles, Card, CardActionArea, CardContent, CardMedia, Typography} from "@material-ui/core";
 import ChatDefaultImage from "../../public/ChatDefaultImage.png";
 import Image from "next/image";
+import {useRouter} from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
     Card: {
@@ -36,9 +37,28 @@ const useStyles = makeStyles((theme) => ({
 
 function SingleChat(props) {
 
+    const router = useRouter();
+
     function clickHandler() {
         console.log("clicked!")
+        router.push({
+            pathname: `/library/${props.meetingID}`,
+            query: {id: props.meetingID}
+        });
+            
+        /*  this.props.router.push({
+  pathname: `/users/${user.id}`,
+  query: {success: true}
+});
+
+        /*
+            /*{
+            pathname: '/meetings/[id]',
+            query: {id : props.meetingID}
+        }*/ 
+
     }
+
     const classes = useStyles();
     return (
         <Card className = {classes.Card} onClick = {clickHandler}>

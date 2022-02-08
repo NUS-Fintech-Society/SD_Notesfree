@@ -33,13 +33,15 @@ export default function Home() {
 }
 */
 
-import {useRef, useState, useContext} from "react";
+import {useRef, useState, useContext, useEffect} from "react";
 //import '../styles.css';
 import CustomInput from '../components/CustomInput';
 import {getUserByEmail, sha256} from "../api/api";
 import IsLoggedInContext from "../store/isloggedin";
 import { Button, TextField, makeStyles} from "@material-ui/core";
 import {Router, useRouter} from "next/router";
+import {getChatById} from '../api/api';
+
 
 const useStyles = makeStyles((theme) => ({
   Background: {
@@ -52,6 +54,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Signup() {
+
+  const [loading, setLoading] = useState(true);
+
+  const fetchEvents = async () => {
+    try {
+    
+     const response = await getChatById('1642436447808');
+     console.log("test");
+     console.log(response)
+    } catch (err) {
+     console.log(err);
+    }
+}
+
+useEffect(() => {
+    fetchEvents().then(() => {
+    });
+}, []);
+
 
   const isLoggedInCtx = useContext(IsLoggedInContext); 
   const router = useRouter();
