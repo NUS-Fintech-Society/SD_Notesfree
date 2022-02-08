@@ -62,6 +62,9 @@ const Navbar = () => {
             <Link href='/login' passHref>
               <div className = {classes.StyledLink}>Login</div>
             </Link>
+            <Link href='/meetings' passHref>
+              <div className = {classes.StyledLink}>testMeeting</div>
+            </Link>
           </div>
         </Toolbar>
         </AppBar>
